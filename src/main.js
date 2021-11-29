@@ -5,6 +5,7 @@ import { createMenu } from './view/menu-view';
 import { createPopup } from './view/popup-view';
 import { createProfileRating } from './view/profile-view';
 import { createShowMoreButton } from './view/show-more-button-view';
+import { createSorting } from './view/sorting-view';
 
 const RenderPosition = {
   BEFOREBEGIN: 'beforebegin',
@@ -29,6 +30,10 @@ renderTemplate(mainElement, createMenu(), RenderPosition.AFTERBEGIN);
 renderTemplate(mainElement, createFilmsCatalog(), RenderPosition.BEFOREEND);
 renderTemplate(footerStatisticElement, createFooterStatistics(), RenderPosition.AFTERBEGIN);
 renderTemplate(footerElement, createPopup(), RenderPosition.AFTEREND);
+
+const menuElement = mainElement.querySelector('.main-navigation');
+
+renderTemplate(menuElement, createSorting(), RenderPosition.AFTEREND);
 
 const filmCardsContainerElement = mainElement.querySelector('.films-list__container');
 
