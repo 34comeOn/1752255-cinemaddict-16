@@ -2,10 +2,6 @@ const NOVICE_STATUS = 10;
 const FAN_STATUS = 20;
 const BUFF_STATUS = 21;
 
-import dayjs from 'dayjs';
-
-dayjs.extend(require('dayjs/plugin/relativeTime'));
-
 const MINUTES_IN_HOUR = 60;
 
 const getRandomInteger = (a,b) => {
@@ -21,10 +17,6 @@ const getHours = (runtime) => {
 
   return `${hours}h ${minutes}m`;
 };
-
-const getRandomTimeAgo = () => (
-  dayjs(`2021-12-07 ${getRandomInteger(0,8)}:00`).fromNow()
-);
 
 const cutDescription = (text) => {
   if (text.length > 139) {
@@ -61,7 +53,7 @@ const compareCommentsAmount = (countA, countB) => {
   const firstNumber = getCommentsAmount(countA);
   const secondNumber = getCommentsAmount(countB);
 
-  return secondNumber-firstNumber;
+  return secondNumber - firstNumber;
 };
 
 const compareMoviesRating = (countA, countB) => {
@@ -71,4 +63,4 @@ const compareMoviesRating = (countA, countB) => {
   return secondNumber - firstNumber;
 };
 
-export {getRandomInteger, getHours, getRandomTimeAgo, cutDescription, getProfileStatus, compareCommentsAmount, compareMoviesRating};
+export {getRandomInteger, getHours, cutDescription, getProfileStatus, compareCommentsAmount, compareMoviesRating};

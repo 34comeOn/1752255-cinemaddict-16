@@ -112,15 +112,13 @@ const getGenre = () => {
   return movieGenres;
 };
 
-const booleanTool = Boolean(getRandomInteger(0,1));
-
 const getDescription = () => {
   const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante';
 
   const stingArray = text.split('.');
 
   const movieDescription = stingArray.map((string) => {
-    if(booleanTool) {
+    if(getRandomInteger(0,1)) {
       return string;
     }
   }).join('.');
@@ -197,4 +195,4 @@ const generateMovieData = () => ({
   }
 });
 
-export {generateMovieData, currentComments};
+export {generateMovieData, currentComments, getReleaseDate};
