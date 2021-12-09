@@ -1,7 +1,6 @@
 const NOVICE_STATUS = 10;
 const FAN_STATUS = 20;
 const BUFF_STATUS = 21;
-
 const MINUTES_IN_HOUR = 60;
 
 const getRandomInteger = (a,b) => {
@@ -9,6 +8,12 @@ const getRandomInteger = (a,b) => {
   const maxInteger = Math.floor(Math.max(a,b));
 
   return Math.floor(minInteger + Math.random()*(maxInteger - minInteger + 1));
+};
+
+const getRandomArrayElement = (array, min, max) => {
+  const randomArrayElement = array[getRandomInteger(min, max)];
+
+  return randomArrayElement;
 };
 
 const getHours = (runtime) => {
@@ -63,4 +68,21 @@ const compareMoviesRating = (countA, countB) => {
   return secondNumber - firstNumber;
 };
 
-export {getRandomInteger, getHours, cutDescription, getProfileStatus, compareCommentsAmount, compareMoviesRating};
+const getBoolean = () => (Boolean(getRandomInteger(0,1)));
+
+const getArrayWithRandomElements = (array) => {
+  const arrayWithRandomElements = [];
+  array.forEach((element) => {
+    if (getBoolean()) {
+      arrayWithRandomElements.push(element);
+    }
+  });
+
+  if (arrayWithRandomElements.length === 0) {
+    return ['не известно'];
+  }
+
+  return arrayWithRandomElements;
+};
+
+export {getRandomInteger, getHours, cutDescription, getProfileStatus, compareCommentsAmount, compareMoviesRating, getRandomArrayElement, getBoolean, getArrayWithRandomElements};

@@ -1,70 +1,94 @@
 import { getRandomInteger } from '../util';
+import { getRandomArrayElement } from '../util';
+import { getBoolean } from '../util';
+import { getArrayWithRandomElements } from '../util';
 import dayjs from 'dayjs';
 
-const getRandomTitle = () => {
-  const movieTitles = [
-    'Friends',
-    'La La Land',
-    'Whiplash',
-    'Thursday',
-    'Birdman',
-    'My Name Is Khan'
-  ];
+const TITLES_ARRAY_MAX_INDEX = 5;
+const POSTERS_ARRAY_MAX_INDEX = 4;
+const DIRECTORS_ARRAY_MAX_INDEX = 4;
+const WRITERS_ARRAY_MAX_INDEX = 2;
+const ACTORS_ARRAY_MAX_INDEX = 3;
+const REALEASE_COUNTRIES_ARRAY_MAX_INDEX = 3;
+const COMMENT_AUTHOR_ARRAY_MAX_INDEX = 4;
+const COMMENT_EMOTION_ARRAY_MAX_INDEX = 3;
 
-  return movieTitles[getRandomInteger(0,5)];
-};
+const MAX_AGE_RATING = 18;
+const MIN_RUN_TIME = 5;
+const MAX_RUN_TIME = 240;
+const MIN_COMMENT_ID = 100;
+const MAX_COMMENT_ID = 1000;
+
+const movieTitles = [
+  'Friends',
+  'La La Land',
+  'Whiplash',
+  'Thursday',
+  'Birdman',
+  'My Name Is Khan'
+];
+
+const moviePosters = [
+  './images/posters/made-for-each-other.png',
+  './images/posters/popeye-meets-sinbad.png',
+  './images/posters/sagebrush-trail.jpg',
+  './images/posters/santa-claus-conquers-the-martians.jpg',
+  './images/posters/the-dance-of-life.jpg'
+];
+
+const movieDirectors = [
+  'Robert Zemeckis',
+  'Alfred Hitchcock',
+  'Christopher Nolan',
+  'David Fincher',
+  'Quentin Tarantino'
+];
+
+const movieWriters = [
+  ['Bong Joon-ho','Jin-won Han'],
+  ['Nicolás Giacobone','Alexander Dinelaris'],
+  ['Damien Chazelle']
+];
+
+const movieActors = [
+  ['Ryan Gosling','Emma Stone'],
+  ['Jean Dujardin','John Goodman'],
+  ['James Cromwell','Penelope Ann Miller'],
+  ['Sandra Bullock','George Clooney']
+];
+
+const realeaseCountries = [
+  'USA',
+  'France',
+  'Italy',
+  'USSR'
+];
+
+const commentAuthor = [
+  'Катя',
+  'Коля',
+  'Маша',
+  'Гриша',
+  'Ибрагим'
+];
+
+const commentEmotion = [
+  'smile',
+  'sleeping',
+  'puke',
+  'angry'
+];
+
+const allGenres = [
+  'comedy',
+  'detective',
+  'horror',
+  'thriller',
+  'drama'
+];
 
 const getMovieRating = () => (
   (Math.random()*getRandomInteger(1,10)).toFixed(1)
-);
-
-const getPoster = () => {
-  const moviePosters = [
-    './images/posters/made-for-each-other.png',
-    './images/posters/popeye-meets-sinbad.png',
-    './images/posters/sagebrush-trail.jpg',
-    './images/posters/santa-claus-conquers-the-martians.jpg',
-    './images/posters/the-dance-of-life.jpg'
-  ];
-
-  return moviePosters[getRandomInteger(0,4)];
-};
-
-const getDirector = () => {
-  const movieDirector = [
-    'Robert Zemeckis',
-    'Alfred Hitchcock',
-    'Christopher Nolan',
-    'David Fincher',
-    'Quentin Tarantino'
-  ];
-
-  return movieDirector[getRandomInteger(0,4)];
-};
-
-const getWriters = () => {
-  const movieWriters = [
-    ['Bong Joon-ho','Jin-won Han'],
-    ['Nicolás Giacobone','Alexander Dinelaris'],
-    ['Damien Chazelle']
-  ];
-
-  return movieWriters[getRandomInteger(0,2)];
-};
-
-const getActors = () => {
-  const movieActors = [
-    ['Ryan Gosling','Emma Stone'],
-    ['Jean Dujardin','John Goodman'],
-    ['James Cromwell','Penelope Ann Miller'],
-    ['Sandra Bullock','George Clooney']
-  ];
-
-  return movieActors[getRandomInteger(0,3)];
-};
-
-const getAgeRating = () => (
-  getRandomInteger(0,18)
 );
 
 const getReleaseDate = () => {
@@ -76,89 +100,20 @@ const getReleaseDate = () => {
   return ReleaseDate;
 };
 
-const getReleaseCountry = () => {
-  const realeaseCountries = [
-    'USA',
-    'France',
-    'Italy',
-    'USSR'
-  ];
-
-  return realeaseCountries[getRandomInteger(0,3)];
-};
-
-const getRuntime = () => (
-  getRandomInteger(5,240)
-);
-
-const getGenre = () => {
-  const movieGenres = [];
-  const allGenres = [
-    'comedy',
-    'detective',
-    'horror',
-    'thriller',
-    'drama'
-  ];
-
-  for (let i = 0; i <= getRandomInteger(0,3); i++) {
-    const randomGenre = allGenres[getRandomInteger(1,4)];
-
-    if (!movieGenres.includes(randomGenre)){
-      movieGenres[i] = randomGenre;
-    }
-  }
-
-  return movieGenres;
-};
-
 const getDescription = () => {
   const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante';
 
   const stingArray = text.split('.');
 
-  const movieDescription = stingArray.map((string) => {
-    if(getRandomInteger(0,1)) {
-      return string;
-    }
-  }).join('.');
-
-  return movieDescription;
-};
-
-const getCommentId = () => (
-  getRandomInteger(100,1000)
-);
-
-const getCommentAuthor = () => {
-  const commentAuthor = [
-    'Катя',
-    'Коля',
-    'Маша',
-    'Гриша',
-    'Ибрагим'
-  ];
-
-  return commentAuthor[getRandomInteger(0,4)];
-};
-
-const getCommentEmotion = () => {
-  const commentEmotion = [
-    'smile',
-    'sleeping',
-    'puke',
-    'angry'
-  ];
-
-  return commentEmotion[getRandomInteger(0,3)];
+  return getArrayWithRandomElements(stingArray).join('.');
 };
 
 const generateComment = () => ({
-  'id': getCommentId(),
-  'author': getCommentAuthor(),
+  'id': getRandomInteger(MIN_COMMENT_ID, MAX_COMMENT_ID),
+  'author': getRandomArrayElement(commentAuthor, 0, COMMENT_AUTHOR_ARRAY_MAX_INDEX),
   'comment': getDescription(),
   'date': getReleaseDate(),
-  'emotion': getCommentEmotion()
+  'emotion': getRandomArrayElement(commentEmotion, 0, COMMENT_EMOTION_ARRAY_MAX_INDEX)
 });
 
 const generateComments = () => (
@@ -171,27 +126,27 @@ const generateMovieData = () => ({
   'id': getRandomInteger(1,100),
   'comments': generateComments(),
   'filmInfo' : {
-    'title': getRandomTitle(),
-    'alternative_title': getRandomTitle(),
+    'title': getRandomArrayElement(movieTitles, 0, TITLES_ARRAY_MAX_INDEX),
+    'alternative_title': getRandomArrayElement(movieTitles, 0, TITLES_ARRAY_MAX_INDEX),
     'totalRating': getMovieRating(),
-    'poster': getPoster(),
-    'ageRating': `${getAgeRating()}+`,
-    'director': getDirector(),
-    'writers': getWriters(),
-    'actors': getActors(),
+    'poster': getRandomArrayElement(moviePosters, 0, POSTERS_ARRAY_MAX_INDEX),
+    'ageRating': `${getRandomInteger(0,MAX_AGE_RATING)}+`,
+    'director': getRandomArrayElement(movieDirectors, 0, DIRECTORS_ARRAY_MAX_INDEX),
+    'writers': getRandomArrayElement(movieWriters, 0, WRITERS_ARRAY_MAX_INDEX),
+    'actors': getRandomArrayElement(movieActors, 0, ACTORS_ARRAY_MAX_INDEX),
     'release': {
       'date': getReleaseDate(),
-      'releaseCountry': getReleaseCountry()
+      'releaseCountry': getRandomArrayElement(realeaseCountries, 0, REALEASE_COUNTRIES_ARRAY_MAX_INDEX)
     },
-    'runtime': getRuntime(),
-    'genre': getGenre(),
+    'runtime': getRandomInteger(MIN_RUN_TIME, MAX_RUN_TIME),
+    'genre': getArrayWithRandomElements(allGenres),
     'description': getDescription(),
   },
   'user_details': {
-    'watchlist': Boolean(getRandomInteger(0,1)),
-    'already_watched': Boolean(getRandomInteger(0,1)),
+    'watchlist': getBoolean(),
+    'already_watched': getBoolean(),
     'watching_date': getReleaseDate(),
-    'favorite': Boolean(getRandomInteger(0,1))
+    'favorite': getBoolean()
   }
 });
 
