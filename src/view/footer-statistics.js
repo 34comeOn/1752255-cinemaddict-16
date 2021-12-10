@@ -1,7 +1,7 @@
-const createFooterStatistics = () => (
+const createFooterStatisticsTemplate = (moviesAmount) => (
   `<p>
-    130 291 movies inside
+    ${moviesAmount.length} movies inside
   </p>`
 );
 
-export {createFooterStatistics};
+export {createFooterStatisticsTemplate};
