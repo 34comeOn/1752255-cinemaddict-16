@@ -7,12 +7,8 @@ import { createProfileRatingTemplate } from './view/profile-view';
 import { createShowMoreButtonTemplate } from './view/show-more-button-view';
 import { createSortingTemplate } from './view/sorting-view';
 import { createFilmCommentTemplate } from './view/comments-view';
-import { generateMovieData } from './mock/task.js';
-import { currentComments } from './mock/task.js';
-import { compareCommentsAmount } from './util.js';
-import { compareMoviesRating } from './util.js';
-import './util.js';
-import './mock/task.js';
+import { generateMovieData, currentComments } from './mock/task.js';
+import { compareCommentsAmount, compareMoviesRating } from './util.js';
 
 const FILMS_PER_STEP = 5;
 const MOVIE_DATA_OBJECTS = 20;

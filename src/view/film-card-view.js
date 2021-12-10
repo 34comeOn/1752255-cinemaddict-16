@@ -1,5 +1,4 @@
-import { getHours } from '../util';
-import { cutDescription } from '../util';
+import { getHours, cutDescription } from '../util';
 
 const createFilmCardTemplate = (movie) => {
   const {filmInfo,comments} = movie;

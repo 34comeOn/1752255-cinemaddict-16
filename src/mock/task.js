@@ -1,17 +1,5 @@
-import { getRandomInteger } from '../util';
-import { getRandomArrayElement } from '../util';
-import { getBoolean } from '../util';
-import { getArrayWithRandomElements } from '../util';
+import { getRandomInteger, getRandomArrayElement, getRandomBoolean, getArrayWithRandomElements} from '../util';
 import dayjs from 'dayjs';
-
-const TITLES_ARRAY_MAX_INDEX = 5;
-const POSTERS_ARRAY_MAX_INDEX = 4;
-const DIRECTORS_ARRAY_MAX_INDEX = 4;
-const WRITERS_ARRAY_MAX_INDEX = 2;
-const ACTORS_ARRAY_MAX_INDEX = 3;
-const REALEASE_COUNTRIES_ARRAY_MAX_INDEX = 3;
-const COMMENT_AUTHOR_ARRAY_MAX_INDEX = 4;
-const COMMENT_EMOTION_ARRAY_MAX_INDEX = 3;
 
 const MAX_AGE_RATING = 18;
 const MIN_RUN_TIME = 5;
@@ -110,10 +98,10 @@ const getDescription = () => {
 
 const generateComment = () => ({
   'id': getRandomInteger(MIN_COMMENT_ID, MAX_COMMENT_ID),
-  'author': getRandomArrayElement(commentAuthor, 0, COMMENT_AUTHOR_ARRAY_MAX_INDEX),
+  'author': getRandomArrayElement(commentAuthor),
   'comment': getDescription(),
   'date': getReleaseDate(),
-  'emotion': getRandomArrayElement(commentEmotion, 0, COMMENT_EMOTION_ARRAY_MAX_INDEX)
+  'emotion': getRandomArrayElement(commentEmotion)
 });
 
 const generateComments = () => (
@@ -126,27 +114,27 @@ const generateMovieData = () => ({
   'id': getRandomInteger(1,100),
   'comments': generateComments(),
   'filmInfo' : {
-    'title': getRandomArrayElement(movieTitles, 0, TITLES_ARRAY_MAX_INDEX),
-    'alternative_title': getRandomArrayElement(movieTitles, 0, TITLES_ARRAY_MAX_INDEX),
+    'title': getRandomArrayElement(movieTitles),
+    'alternative_title': getRandomArrayElement(movieTitles),
     'totalRating': getMovieRating(),
-    'poster': getRandomArrayElement(moviePosters, 0, POSTERS_ARRAY_MAX_INDEX),
+    'poster': getRandomArrayElement(moviePosters),
     'ageRating': `${getRandomInteger(0,MAX_AGE_RATING)}+`,
-    'director': getRandomArrayElement(movieDirectors, 0, DIRECTORS_ARRAY_MAX_INDEX),
-    'writers': getRandomArrayElement(movieWriters, 0, WRITERS_ARRAY_MAX_INDEX),
-    'actors': getRandomArrayElement(movieActors, 0, ACTORS_ARRAY_MAX_INDEX),
+    'director': getRandomArrayElement(movieDirectors),
+    'writers': getRandomArrayElement(movieWriters),
+    'actors': getRandomArrayElement(movieActors),
     'release': {
       'date': getReleaseDate(),
-      'releaseCountry': getRandomArrayElement(realeaseCountries, 0, REALEASE_COUNTRIES_ARRAY_MAX_INDEX)
+      'releaseCountry': getRandomArrayElement(realeaseCountries)
     },
     'runtime': getRandomInteger(MIN_RUN_TIME, MAX_RUN_TIME),
     'genre': getArrayWithRandomElements(allGenres),
     'description': getDescription(),
   },
   'user_details': {
-    'watchlist': getBoolean(),
-    'already_watched': getBoolean(),
+    'watchlist': getRandomBoolean(),
+    'already_watched': getRandomBoolean(),
     'watching_date': getReleaseDate(),
-    'favorite': getBoolean()
+    'favorite': getRandomBoolean()
   }
 });
 

@@ -10,8 +10,8 @@ const getRandomInteger = (a,b) => {
   return Math.floor(minInteger + Math.random()*(maxInteger - minInteger + 1));
 };
 
-const getRandomArrayElement = (array, min, max) => {
-  const randomArrayElement = array[getRandomInteger(min, max)];
+const getRandomArrayElement = (array) => {
+  const randomArrayElement = array[getRandomInteger(0, array.length - 1)];
 
   return randomArrayElement;
 };
@@ -68,12 +68,12 @@ const compareMoviesRating = (countA, countB) => {
   return secondNumber - firstNumber;
 };
 
-const getBoolean = () => (Boolean(getRandomInteger(0,1)));
+const getRandomBoolean = () => (Boolean(getRandomInteger(0,1)));
 
 const getArrayWithRandomElements = (array) => {
   const arrayWithRandomElements = [];
   array.forEach((element) => {
-    if (getBoolean()) {
+    if (getRandomBoolean()) {
       arrayWithRandomElements.push(element);
     }
   });
@@ -85,4 +85,4 @@ const getArrayWithRandomElements = (array) => {
   return arrayWithRandomElements;
 };
 
-export {getRandomInteger, getHours, cutDescription, getProfileStatus, compareCommentsAmount, compareMoviesRating, getRandomArrayElement, getBoolean, getArrayWithRandomElements};
+export {getRandomInteger, getHours, cutDescription, getProfileStatus, compareCommentsAmount, compareMoviesRating, getRandomArrayElement, getRandomBoolean, getArrayWithRandomElements};
