@@ -1,4 +1,5 @@
 import { getReleaseDate} from '../mock/task';
+import { createElement } from '../render';
 
 const createFilmCommentTemplate = (someComment) => {
   const {emotion, comment, author} = someComment;
@@ -18,4 +19,27 @@ const createFilmCommentTemplate = (someComment) => {
 </li>`;
 };
 
-export {createFilmCommentTemplate};
+export default class FilmCommentView {
+  #element = null;
+  #currentComments = null;
+
+  constructor(currentComments) {
+    this.#currentComments = currentComments;
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element;
+  }
+
+  get template() {
+    return createFilmCommentTemplate(this.#currentComments);
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}

@@ -1,3 +1,5 @@
+import { createElement } from '../render';
+
 const createMenuTemplate = (wathlist, alreadyWatched, favorite) => (
   `<nav class="main-navigation">
   <div class="main-navigation__items">
@@ -10,4 +12,31 @@ const createMenuTemplate = (wathlist, alreadyWatched, favorite) => (
 </nav>`
 );
 
-export {createMenuTemplate};
+export default class MenuView {
+  #element = null;
+  #watchlistMovies = null;
+  #alreadyWatchedMovies = null;
+  #favoriteMovies = null;
+
+  constructor(watchlistMovies, alreadyWatchedMovies, favoriteMovies) {
+    this.#watchlistMovies = watchlistMovies;
+    this.#alreadyWatchedMovies = alreadyWatchedMovies;
+    this.#favoriteMovies = favoriteMovies;
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element;
+  }
+
+  get template() {
+    return createMenuTemplate(this.#watchlistMovies, this.#alreadyWatchedMovies, this.#favoriteMovies);
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}

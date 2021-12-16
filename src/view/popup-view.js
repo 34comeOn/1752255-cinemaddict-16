@@ -1,5 +1,6 @@
 import { getHours } from '../util';
 import { currentComments } from '../mock/task';
+import { createElement } from '../render';
 
 const createPopupTemplate = (movie) => {
   const {filmInfo} = movie;
@@ -118,4 +119,27 @@ const createPopupTemplate = (movie) => {
 </section>`;
 };
 
-export {createPopupTemplate};
+export default class PopupView {
+  #element = null;
+  #movies = null;
+
+  constructor(movies) {
+    this.#movies = movies;
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element;
+  }
+
+  get template() {
+    return createPopupTemplate(this.#movies);
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}

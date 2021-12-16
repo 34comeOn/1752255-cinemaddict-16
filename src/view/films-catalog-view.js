@@ -1,3 +1,5 @@
+import { createElement } from '../render';
+
 const createFilmsCatalogTemplate = () => (
   `<section class="films">
   <section class="films-list">
@@ -24,4 +26,22 @@ const createFilmsCatalogTemplate = () => (
 </section>`
 );
 
-export {createFilmsCatalogTemplate};
+export default class FilmsCatalogView {
+  #element = null;
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element;
+  }
+
+  get template() {
+    return createFilmsCatalogTemplate();
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}
