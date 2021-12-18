@@ -1,25 +1,25 @@
 import { generateMovieData, currentComments } from './mock/task.js';
-import { compareCommentsAmount, compareMoviesRating } from './util.js';
-import { RenderPosition, render } from './render.js';
-import PopupView from './view/popup-view';
-import ProfileRatingView from './view/profile-view';
-import MenuView from './view/menu-view';
-import FilmCardTemplateView from './view/film-card-view';
-import SortingView from './view/sorting-view';
-import ShowMoreButtonView from './view/show-more-button-view';
-import FooterStatisticsView from './view/footer-statistics';
-import FilmCommentView from './view/comments-view';
-import FilmsCatalogView from './view/films-catalog-view';
+import { compareCommentsAmount, compareMoviesRating } from './service/util.js';
+import { RenderPosition, render } from './service/render.js';
+import { renderFilmCard } from './service/render-film-card.js';
+import PopupView from './view/popup-view.js';
+import ProfileRatingView from './view/profile-view.js';
+import MenuView from './view/menu-view.js';
+import SortingView from './view/sorting-view.js';
+import ShowMoreButtonView from './view/show-more-button-view.js';
+import FooterStatisticsView from './view/footer-statistics.js';
+import FilmCommentView from './view/comments-view.js';
+import FilmsCatalogView from './view/films-catalog-view.js';
+
+const FILMS_PER_STEP = 5;
+const MOVIE_DATA_OBJECTS = 20;
+const TOP_MOVIES_TO_SHOW = 2;
 
 const bodyELement = document.querySelector('body');
 const headerElement = document.querySelector('.header');
 const mainElement = document.querySelector('.main');
 const footerStatisticElement = document.querySelector('.footer__statistics');
 const footerElement = document.querySelector('.footer');
-
-const FILMS_PER_STEP = 5;
-const MOVIE_DATA_OBJECTS = 20;
-const TOP_MOVIES_TO_SHOW = 2;
 
 
 const movies = Array.from({length: MOVIE_DATA_OBJECTS}, generateMovieData);
@@ -32,15 +32,20 @@ const topRatedMovies = movies.slice().sort(compareMoviesRating);
 const mostCommentedMovies = movies.slice().sort(compareCommentsAmount);
 
 
-render(headerElement, new ProfileRatingView(alreadyWatchedMovies.length).element, RenderPosition.BEFOREEND);
+const profileRatingViewComponent = new ProfileRatingView(alreadyWatchedMovies.length);
+render(headerElement, profileRatingViewComponent.element, RenderPosition.BEFOREEND);
 
 const menuComponent = new MenuView(watchlistMovies, alreadyWatchedMovies, favoriteMovies);
 render(mainElement, menuComponent.element, RenderPosition.AFTERBEGIN);
 
 const filmsCatalogComponent = new FilmsCatalogView();
 render(mainElement, filmsCatalogComponent.element, RenderPosition.BEFOREEND);
-render(footerStatisticElement, new FooterStatisticsView(movies).element, RenderPosition.AFTERBEGIN);
-render(menuComponent.element, new SortingView().element, RenderPosition.AFTEREND);
+
+const footerStatisticsViewComponent = new FooterStatisticsView(movies);
+render(footerStatisticElement, footerStatisticsViewComponent.element, RenderPosition.AFTERBEGIN);
+
+const sortingViewComponent =  new SortingView();
+render(menuComponent.element, sortingViewComponent.element, RenderPosition.AFTEREND);
 
 const filmCardsContainerElement = filmsCatalogComponent.element.querySelector('.films-list__container');
 
@@ -59,7 +64,8 @@ bodyELement.addEventListener('click', (evt) => {
     const filmCommentsContainer = document.querySelector('.film-details__comments-list');
 
     for (let k = 0; k <= currentComments.length - 1; k++) {
-      render(filmCommentsContainer, new FilmCommentView(currentComments[k]).element, RenderPosition.AFTERBEGIN);
+      const filmCommentViewComponent = new FilmCommentView(currentComments[k]);
+      render(filmCommentsContainer, filmCommentViewComponent.element, RenderPosition.AFTERBEGIN);
     }
 
     const closePupupElement = popupComponent.element.querySelector('.film-details__close-btn');
@@ -73,7 +79,7 @@ bodyELement.addEventListener('click', (evt) => {
 });
 
 for (let i = 0; i < Math.min(FILMS_PER_STEP, MOVIE_DATA_OBJECTS); i++) {
-  render(filmCardsContainerElement, new FilmCardTemplateView(movies[i]).element, RenderPosition.BEFOREEND);
+  renderFilmCard(filmCardsContainerElement, movies[i], RenderPosition.BEFOREEND);
 }
 
 if (MOVIE_DATA_OBJECTS > FILMS_PER_STEP) {
@@ -88,7 +94,7 @@ if (MOVIE_DATA_OBJECTS > FILMS_PER_STEP) {
 
     movies
       .slice(renderedFilmCards, renderedFilmCards + FILMS_PER_STEP)
-      .forEach((movieCard) => { render(filmCardsContainerElement, new FilmCardTemplateView(movieCard).element, RenderPosition.BEFOREEND);});
+      .forEach((movieCard) => { renderFilmCard(filmCardsContainerElement, movieCard, RenderPosition.BEFOREEND);});
 
     renderedFilmCards += FILMS_PER_STEP;
 
@@ -102,9 +108,9 @@ const topRatedContainerElement = mainElement.querySelector('.films-list__contain
 const mostCommentedContainerElement = mainElement.querySelector('.films-list__container--most_commented');
 
 for (let i = 0; i < TOP_MOVIES_TO_SHOW; i++) {
-  render(topRatedContainerElement, new FilmCardTemplateView(topRatedMovies[i]).element, RenderPosition.AFTERBEGIN);
+  renderFilmCard(topRatedContainerElement, topRatedMovies[i], RenderPosition.AFTERBEGIN);
 }
 
 for (let i = 0; i < TOP_MOVIES_TO_SHOW; i++) {
-  render(mostCommentedContainerElement, new FilmCardTemplateView(mostCommentedMovies[i]).element, RenderPosition.AFTERBEGIN);
+  renderFilmCard(mostCommentedContainerElement, mostCommentedMovies[i], RenderPosition.AFTERBEGIN);
 }

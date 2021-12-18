@@ -1,10 +1,4 @@
-import { createElement } from '../render';
-
-const createFooterStatisticsTemplate = (moviesAmount) => (
-  `<p>
-    ${moviesAmount.length} movies inside
-  </p>`
-);
+import { createElement } from '../service/render.js';
 
 export default class FooterStatisticsView {
   #element = null;
@@ -23,7 +17,9 @@ export default class FooterStatisticsView {
   }
 
   get template() {
-    return createFooterStatisticsTemplate(this.#movies);
+    return `<p>
+    ${this.#movies.length} movies inside
+  </p>`;
   }
 
   removeElement() {

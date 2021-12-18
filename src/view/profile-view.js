@@ -1,12 +1,5 @@
-import { getProfileStatus } from '../util';
-import { createElement } from '../render';
-
-const createProfileRatingTemplate = (watchedMovies) => (
-  `<section class="header__profile profile">
-  <p class="profile__rating">${getProfileStatus(watchedMovies)}</p>
-  <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
-  </section>`
-);
+import { getProfileStatus } from '../service/util.js';
+import { createElement } from '../service/render.js';
 
 export default class ProfileRatingView {
   #element = null;
@@ -25,7 +18,10 @@ export default class ProfileRatingView {
   }
 
   get template() {
-    return createProfileRatingTemplate(this.#alreadyWatchedMovies);
+    return `<section class="header__profile profile">
+    <p class="profile__rating">${getProfileStatus(this.#alreadyWatchedMovies)}</p>
+    <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
+    </section>`;
   }
 
   removeElement() {

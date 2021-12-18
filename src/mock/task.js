@@ -1,4 +1,4 @@
-import { getRandomInteger, getRandomArrayElement, getRandomBoolean, getArrayWithRandomElements} from '../util';
+import { getRandomInteger, getRandomArrayElement, getRandomBoolean, getArrayWithRandomElements} from '../service/util.js';
 import dayjs from 'dayjs';
 
 const MAX_AGE_RATING = 18;

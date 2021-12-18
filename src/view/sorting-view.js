@@ -1,12 +1,4 @@
-import { createElement } from '../render';
-
-const createSortingTemplate = () => (
-  `<ul class="sort">
-  <li><a href="#" class="sort__button sort__button--active">Sort by default</a></li>
-  <li><a href="#" class="sort__button">Sort by date</a></li>
-  <li><a href="#" class="sort__button">Sort by rating</a></li>
-  </ul>`
-);
+import { createElement } from '../service/render.js';
 
 export default class SortingView {
   #element = null;
@@ -20,7 +12,11 @@ export default class SortingView {
   }
 
   get template() {
-    return createSortingTemplate();
+    return `<ul class="sort">
+    <li><a href="#" class="sort__button sort__button--active">Sort by default</a></li>
+    <li><a href="#" class="sort__button">Sort by date</a></li>
+    <li><a href="#" class="sort__button">Sort by rating</a></li>
+    </ul>`;
   }
 
   removeElement() {
