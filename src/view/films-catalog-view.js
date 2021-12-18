@@ -1,27 +1,43 @@
-const createFilmsCatalogTemplate = () => (
-  `<section class="films">
-  <section class="films-list">
-    <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
+import { createElement } from '../service/render.js';
 
-    <div class="films-list__container">
-    </div>
+export default class FilmsCatalogView {
+  #element = null;
 
-  </section>
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
 
-  <section class="films-list films-list--extra">
-    <h2 class="films-list__title">Top rated</h2>
+    return this.#element;
+  }
 
-    <div class="films-list__container films-list__container--top_rated">
-    </div>
-  </section>
+  get template() {
+    return `<section class="films">
+    <section class="films-list">
+      <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
 
-  <section class="films-list films-list--extra">
-    <h2 class="films-list__title">Most commented</h2>
+      <div class="films-list__container">
+      </div>
 
-    <div class="films-list__container films-list__container--most_commented">
-    </div>
-  </section>
-</section>`
-);
+    </section>
 
-export {createFilmsCatalogTemplate};
+    <section class="films-list films-list--extra">
+      <h2 class="films-list__title">Top rated</h2>
+
+      <div class="films-list__container films-list__container--top_rated">
+      </div>
+    </section>
+
+    <section class="films-list films-list--extra">
+      <h2 class="films-list__title">Most commented</h2>
+
+      <div class="films-list__container films-list__container--most_commented">
+      </div>
+    </section>
+  </section>`;
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}
