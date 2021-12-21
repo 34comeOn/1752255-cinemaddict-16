@@ -1,21 +1,13 @@
 import { getHours } from '../service/util.js';
 import { currentComments } from '../mock/task.js';
-import { createElement } from '../service/render.js';
+import AbstractView from './abstract-view.js';
 
-export default class PopupView {
-  #element = null;
+export default class PopupView extends AbstractView {
   #movies = null;
 
   constructor(movies) {
+    super();
     this.#movies = movies;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
@@ -133,9 +125,5 @@ export default class PopupView {
       </div>
     </form>
   </section>`;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

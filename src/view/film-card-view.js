@@ -1,20 +1,12 @@
 import { getHours, cutDescription } from '../service/util.js';
-import { createElement } from '../service/render.js';
+import AbstractView from './abstract-view.js';
 
-export default class FilmCardTemplateView {
-  #element = null;
+export default class FilmCardTemplateView extends AbstractView {
   #movies = null;
 
   constructor(movies) {
+    super();
     this.#movies = movies;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
@@ -41,9 +33,5 @@ export default class FilmCardTemplateView {
         <button class="film-card__controls-item film-card__controls-item--favorite" type="button">Mark as favorite</button>
       </div>
     </article>`;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

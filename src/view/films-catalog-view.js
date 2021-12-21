@@ -1,16 +1,6 @@
-import { createElement } from '../service/render.js';
+import AbstractView from './abstract-view.js';
 
-export default class FilmsCatalogView {
-  #element = null;
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
+export default class FilmsCatalogView extends AbstractView {
   get template() {
     return `<section class="films">
     <section class="films-list">
@@ -35,9 +25,5 @@ export default class FilmsCatalogView {
       </div>
     </section>
   </section>`;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }
