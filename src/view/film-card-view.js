@@ -1,7 +1,7 @@
 import { getHours, cutDescription } from '../service/util.js';
 import AbstractView from './abstract-view.js';
 
-export default class FilmCardTemplateView extends AbstractView {
+export default class FilmCardView extends AbstractView {
   #movies = null;
 
   constructor(movies) {
