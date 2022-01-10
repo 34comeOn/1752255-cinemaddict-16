@@ -1,7 +1,6 @@
-import { generateMovieData, currentComments } from './mock/task.js';
+import { generateMovieData} from './mock/task.js';
 import { compareCommentsAmount, compareMoviesRating } from './service/util.js';
 import { RenderPosition, render } from './service/render.js';
-import { renderFilmCard } from './service/render-film-card.js';
 import PopupView from './view/popup-view.js';
 import ProfileRatingView from './view/profile-view.js';
 import MenuView from './view/menu-view.js';
@@ -10,6 +9,7 @@ import ShowMoreButtonView from './view/show-more-button-view.js';
 import FooterStatisticsView from './view/footer-statistics.js';
 import FilmCommentView from './view/comments-view.js';
 import FilmsCatalogView from './view/films-catalog-view.js';
+import FilmCardView from './view/film-card-view.js';
 
 const FILMS_PER_STEP = 5;
 const MOVIE_DATA_OBJECTS = 20;
@@ -49,34 +49,40 @@ render(menuComponent, sortingViewComponent, RenderPosition.AFTEREND);
 
 const filmCardsContainerElement = filmsCatalogComponent.element.querySelector('.films-list__container');
 
-bodyElement.addEventListener('click', (evt) => {
-  evt.preventDefault();
+const renderPopup = (currentMovieIndex) => {
 
-  if (evt.target.closest('.film-card__link')) {
-    bodyElement.classList.add('hide-overflow');
+  bodyElement.classList.add('hide-overflow');
 
-    const isCurrentMovie = (movie) => (
-      movie.id === Number(evt.target.closest('.film-card__link').querySelector('.film-card__input').value)
-    );
+  const popupComponent = new PopupView(movies[movies.findIndex(currentMovieIndex)]);
+  render(footerElement, popupComponent, RenderPosition.AFTEREND);
+  const filmCommentsContainer = popupComponent.element.querySelector('.film-details__comments-list');
 
-    const popupComponent = new PopupView(movies[movies.findIndex(isCurrentMovie)]);
-    render(footerElement, popupComponent, RenderPosition.AFTEREND);
-    const filmCommentsContainer = document.querySelector('.film-details__comments-list');
+  const currentComments = movies[movies.findIndex(currentMovieIndex)].comments;
 
-    for (let k = 0; k <= currentComments.length - 1; k++) {
-      const filmCommentViewComponent = new FilmCommentView(currentComments[k]);
-      render(filmCommentsContainer, filmCommentViewComponent, RenderPosition.AFTERBEGIN);
-    }
-
-    const closePupupElement = popupComponent.element.querySelector('.film-details__close-btn');
-
-    closePupupElement.addEventListener('click', () => {
-      popupComponent.element.remove();
-
-      bodyElement.classList.remove('hide-overflow');
-    });
+  for (let k = 0; k <= currentComments.length - 1; k++) {
+    const filmCommentViewComponent = new FilmCommentView(currentComments[k]);
+    render(filmCommentsContainer, filmCommentViewComponent, RenderPosition.AFTERBEGIN);
   }
-});
+
+
+  const closePupupComponent = () => {
+    popupComponent.element.remove();
+
+    bodyElement.classList.remove('hide-overflow');
+  };
+
+  popupComponent.setEditClickHandler(closePupupComponent);
+
+};
+
+const renderFilmCard = function (container, moviesData, place) {
+  const filmCardComponenet = new FilmCardView(moviesData);
+
+  render(container, filmCardComponenet, place);
+
+  filmCardComponenet.setEditClickHandler(renderPopup);
+};
+
 
 for (let i = 0; i < Math.min(FILMS_PER_STEP, MOVIE_DATA_OBJECTS); i++) {
   renderFilmCard(filmCardsContainerElement, movies[i], RenderPosition.BEFOREEND);
@@ -85,8 +91,7 @@ for (let i = 0; i < Math.min(FILMS_PER_STEP, MOVIE_DATA_OBJECTS); i++) {
 if (MOVIE_DATA_OBJECTS > FILMS_PER_STEP) {
   let renderedFilmCards = FILMS_PER_STEP;
 
-  const showMoreButtonComponent = new ShowMoreButtonView();
-  render(filmCardsContainerElement, showMoreButtonComponent, RenderPosition.AFTEREND);
+  render(filmCardsContainerElement, new ShowMoreButtonView().element, RenderPosition.AFTEREND);
 
   const showMoreButton = mainElement.querySelector('.films-list__show-more');
 

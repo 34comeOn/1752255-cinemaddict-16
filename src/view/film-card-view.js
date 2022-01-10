@@ -34,4 +34,19 @@ export default class FilmCardView extends AbstractView {
       </div>
     </article>`;
   }
+
+  setEditClickHandler = (callback) => {
+    this._callback.editClick = callback;
+    this.element.querySelector('.film-card__link').addEventListener('click', this.#editClickHandler);
+  }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+
+    const isCurrentMovie = (movie) => (
+      movie.id === Number(evt.target.closest('.film-card__link').querySelector('.film-card__input').value)
+    );
+
+    this._callback.editClick(isCurrentMovie);
+  }
 }

@@ -1,5 +1,3 @@
-import AbstractView from '../view/abstract-view.js';
-
 const NOVICE_STATUS = 10;
 const FAN_STATUS = 20;
 const BUFF_STATUS = 21;

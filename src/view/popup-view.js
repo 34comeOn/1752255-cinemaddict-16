@@ -1,5 +1,4 @@
 import { getHours } from '../service/util.js';
-import { currentComments } from '../mock/task.js';
 import AbstractView from './abstract-view.js';
 
 export default class PopupView extends AbstractView {
@@ -12,6 +11,7 @@ export default class PopupView extends AbstractView {
 
   get template() {
     const {filmInfo} = this.#movies;
+    const {comments} = this.#movies;
 
     return `<section class="film-details">
     <form class="film-details__inner" action="" method="get">
@@ -87,7 +87,7 @@ export default class PopupView extends AbstractView {
 
       <div class="film-details__bottom-container">
         <section class="film-details__comments-wrap">
-          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${currentComments.length}</span></h3>
+          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
 
           <ul class="film-details__comments-list">
           </ul>
@@ -125,5 +125,16 @@ export default class PopupView extends AbstractView {
       </div>
     </form>
   </section>`;
+  }
+
+  setEditClickHandler = (callback) => {
+    this._callback.editClick = callback;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#editClickHandler);
+  }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+
+    this._callback.editClick();
   }
 }
