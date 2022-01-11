@@ -1,23 +1,15 @@
-import { createElement } from '../service/render.js';
+import AbstractView from './abstract-view.js';
 
-export default class MenuView {
-  #element = null;
+export default class MenuView extends AbstractView {
   #watchlistMovies = null;
   #alreadyWatchedMovies = null;
   #favoriteMovies = null;
 
   constructor(watchlistMovies, alreadyWatchedMovies, favoriteMovies) {
+    super();
     this.#watchlistMovies = watchlistMovies;
     this.#alreadyWatchedMovies = alreadyWatchedMovies;
     this.#favoriteMovies = favoriteMovies;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
@@ -30,9 +22,5 @@ export default class MenuView {
     </div>
     <a href="#stats" class="main-navigation__additional">Stats</a>
   </nav>`;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

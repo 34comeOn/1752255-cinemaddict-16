@@ -1,20 +1,12 @@
 import { getReleaseDate} from '../mock/task.js';
-import { createElement } from '../service/render.js';
+import AbstractView from './abstract-view.js';
 
-export default class FilmCommentView {
-  #element = null;
+export default class FilmCommentView extends AbstractView {
   #currentComments = null;
 
   constructor(currentComments) {
+    super();
     this.#currentComments = currentComments;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
@@ -32,9 +24,5 @@ export default class FilmCommentView {
       </p>
     </div>
   </li>`;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

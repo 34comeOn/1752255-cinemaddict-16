@@ -1,20 +1,12 @@
 import { getHours, cutDescription } from '../service/util.js';
-import { createElement } from '../service/render.js';
+import AbstractView from './abstract-view.js';
 
-export default class FilmCardTemplateView {
-  #element = null;
+export default class FilmCardView extends AbstractView {
   #movies = null;
 
   constructor(movies) {
+    super();
     this.#movies = movies;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
@@ -26,7 +18,7 @@ export default class FilmCardTemplateView {
         <p class="film-card__info">
           <span class="film-card__year">${filmInfo.release.date.format('YYYY')}</span>
           <span class="film-card__duration">${getHours(filmInfo.runtime)}</span>
-          <span class="film-card__genre">${filmInfo.genre}</span>
+          <span class="film-card__genre">${filmInfo.genre[0]}</span>
         </p>
         <img src=${filmInfo.poster} alt="" class="film-card__poster">
         <p class="film-card__description">${cutDescription(filmInfo.description)}</p>
@@ -43,7 +35,18 @@ export default class FilmCardTemplateView {
     </article>`;
   }
 
-  removeElement() {
-    this.#element = null;
+  setEditClickHandler = (callback) => {
+    this._callback.editClick = callback;
+    this.element.querySelector('.film-card__link').addEventListener('click', this.#editClickHandler);
+  }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+
+    const compairMovieId = (movie) => (
+      movie.id === this.#movies.id
+    );
+
+    this._callback.editClick(compairMovieId);
   }
 }

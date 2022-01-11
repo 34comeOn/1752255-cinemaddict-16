@@ -108,8 +108,6 @@ const generateComments = () => (
   Array.from({length: getRandomInteger(1,8)}, generateComment)
 );
 
-const currentComments = generateComments();
-
 const generateMovieData = () => ({
   'id': getRandomInteger(1,100),
   'comments': generateComments(),
@@ -138,4 +136,4 @@ const generateMovieData = () => ({
   }
 });
 
-export {generateMovieData, currentComments, getReleaseDate};
+export {generateMovieData, getReleaseDate};

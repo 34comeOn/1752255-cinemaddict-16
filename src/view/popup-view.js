@@ -1,25 +1,17 @@
 import { getHours } from '../service/util.js';
-import { currentComments } from '../mock/task.js';
-import { createElement } from '../service/render.js';
+import AbstractView from './abstract-view.js';
 
-export default class PopupView {
-  #element = null;
+export default class PopupView extends AbstractView {
   #movies = null;
 
   constructor(movies) {
+    super();
     this.#movies = movies;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
     const {filmInfo} = this.#movies;
+    const {comments} = this.#movies;
 
     return `<section class="film-details">
     <form class="film-details__inner" action="" method="get">
@@ -95,7 +87,7 @@ export default class PopupView {
 
       <div class="film-details__bottom-container">
         <section class="film-details__comments-wrap">
-          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${currentComments.length}</span></h3>
+          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
 
           <ul class="film-details__comments-list">
           </ul>
@@ -135,7 +127,14 @@ export default class PopupView {
   </section>`;
   }
 
-  removeElement() {
-    this.#element = null;
+  setEditClickHandler = (callback) => {
+    this._callback.editClick = callback;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#editClickHandler);
+  }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+
+    this._callback.editClick();
   }
 }

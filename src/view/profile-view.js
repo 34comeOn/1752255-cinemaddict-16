@@ -1,20 +1,12 @@
 import { getProfileStatus } from '../service/util.js';
-import { createElement } from '../service/render.js';
+import AbstractView from './abstract-view.js';
 
-export default class ProfileRatingView {
-  #element = null;
+export default class ProfileRatingView extends AbstractView {
   #alreadyWatchedMovies = null;
 
   constructor(alreadyWatchedMovies) {
+    super();
     this.#alreadyWatchedMovies = alreadyWatchedMovies;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
   }
 
   get template() {
@@ -22,9 +14,5 @@ export default class ProfileRatingView {
     <p class="profile__rating">${getProfileStatus(this.#alreadyWatchedMovies)}</p>
     <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
     </section>`;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }
