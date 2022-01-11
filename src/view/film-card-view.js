@@ -18,7 +18,7 @@ export default class FilmCardView extends AbstractView {
         <p class="film-card__info">
           <span class="film-card__year">${filmInfo.release.date.format('YYYY')}</span>
           <span class="film-card__duration">${getHours(filmInfo.runtime)}</span>
-          <span class="film-card__genre">${filmInfo.genre}</span>
+          <span class="film-card__genre">${filmInfo.genre[0]}</span>
         </p>
         <img src=${filmInfo.poster} alt="" class="film-card__poster">
         <p class="film-card__description">${cutDescription(filmInfo.description)}</p>
@@ -43,10 +43,10 @@ export default class FilmCardView extends AbstractView {
   #editClickHandler = (evt) => {
     evt.preventDefault();
 
-    const isCurrentMovie = (movie) => (
-      movie.id === Number(evt.target.closest('.film-card__link').querySelector('.film-card__input').value)
+    const compairMovieId = (movie) => (
+      movie.id === this.#movies.id
     );
 
-    this._callback.editClick(isCurrentMovie);
+    this._callback.editClick(compairMovieId);
   }
 }

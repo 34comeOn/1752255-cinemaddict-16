@@ -55,12 +55,13 @@ const renderPopup = (currentMovieIndex) => {
 
   const popupComponent = new PopupView(movies[movies.findIndex(currentMovieIndex)]);
   render(footerElement, popupComponent, RenderPosition.AFTEREND);
+
   const filmCommentsContainer = popupComponent.element.querySelector('.film-details__comments-list');
 
   const currentComments = movies[movies.findIndex(currentMovieIndex)].comments;
 
-  for (let k = 0; k <= currentComments.length - 1; k++) {
-    const filmCommentViewComponent = new FilmCommentView(currentComments[k]);
+  for (const comment of currentComments) {
+    const filmCommentViewComponent = new FilmCommentView(comment);
     render(filmCommentsContainer, filmCommentViewComponent, RenderPosition.AFTERBEGIN);
   }
 
