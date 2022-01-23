@@ -1,5 +1,6 @@
 import { getRandomInteger, getRandomArrayElement, getRandomBoolean, getArrayWithRandomElements} from '../service/util.js';
 import dayjs from 'dayjs';
+import {nanoid} from 'nanoid';
 
 const MAX_AGE_RATING = 18;
 const MIN_RUN_TIME = 5;
@@ -109,7 +110,7 @@ const generateComments = () => (
 );
 
 const generateMovieData = () => ({
-  'id': getRandomInteger(1,100),
+  'id': nanoid(),
   'comments': generateComments(),
   'filmInfo' : {
     'title': getRandomArrayElement(movieTitles),

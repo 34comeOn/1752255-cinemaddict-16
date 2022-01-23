@@ -49,4 +49,15 @@ export default class FilmCardView extends AbstractView {
 
     this._callback.editClick(compairMovieId);
   }
+
+  setEditClickHandlerAddToButtons = (callback) => {
+    this._callbackAddToButtons.editClick = callback;
+    this.element.querySelector('.film-card__controls-item--add-to-watchlist').addEventListener('click', this.#EditClickHandlerAddToButtons);
+  }
+
+  #EditClickHandlerAddToButtons = (evt) => {
+    evt.preventDefault();
+
+    this._callbackAddToButtons.editClick();
+  }
 }

@@ -3,6 +3,7 @@ import { createElement } from '../service/render.js';
 export default class AbstractView {
   #element = null;
   _callback = {};
+  _callbackAddToButtons = {};
 
   constructor() {
     if(new.target === AbstractView) {
