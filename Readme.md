@@ -1,3 +1,12 @@
+4th personal project "Cinemaddict" (not finished).
+
+Tools:
+
+- Git
+- JS
+- OOP
+- MVP
+
 # Проект «Киноман»
 
 * Студент: [Михаил Барабанов](https://up.htmlacademy.ru/ecmascript/16/user/1752255).
